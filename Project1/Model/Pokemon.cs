@@ -8,16 +8,17 @@ public class Pokemon(int? id,
                      int? order, 
                      int weight
                      /*List<string>? abilities, 
+                     List<string>? forms,
                      List<string>? gameIndicies, 
                      List<string>? heldItems, 
                      List<string>? locationAreaEncounters, 
                      List<string>? moves,
-                     List<string>? sprites, 
                      List<string>? species, 
+                     List<string>? sprites, 
                      List<string>? stats, 
                      List<string>? types,
                      List<string>? pastTypes*/){
     public override string ToString(){
-        return $"Name: {name}\nHeight: {height}\nWeight: {weight}";
+        return $"Name: {name}\nHeight: {height}\nWeight: {weight}"; 
     }
 }
