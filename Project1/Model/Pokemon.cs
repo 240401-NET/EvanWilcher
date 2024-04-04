@@ -1,5 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-
+// Pokeman's object.  To be continued.
 public class Pokemon(int? id, 
                      string? name, 
                      int? baseExperience, 

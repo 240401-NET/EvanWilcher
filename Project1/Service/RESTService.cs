@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-public static class ASPWrapper{
+public static class RESTService{
     static HttpClient client;
     static string data = "";
 
