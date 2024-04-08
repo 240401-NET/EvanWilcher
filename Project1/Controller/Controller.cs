@@ -1,14 +1,7 @@
-
-
-using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
-
 public class Controller{
     // Constants
     protected string? userInput;  //buffer for user input
-    protected Trainer localTrainer = new();
+    public Trainer localTrainer = new();
     protected List<Trainer.PokemonTeam> localTeams = new();
     protected IControllerToMenu menuInterface;
     public Controller(IControllerToMenu _menuInterface){
@@ -46,6 +39,7 @@ public class Controller{
                 Console.WriteLine($"Welcome {userInput}, since you're new let's get some pokemon\nfor your first team using PokeAPI!");
                 localTrainer = new();
                 localTrainer.name = userInput;
+                localTrainer.team = new();
                 menuInterface.UpdateMenuState(Menu.EMenuState.SEARCH);
                 return;
             }

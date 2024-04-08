@@ -30,19 +30,23 @@ public static class FileService{
             return;
         }
     }
-    public static void SaveData(Trainer _trainer){
-        
-        if (NameKeys.Contains(_trainer.name)){
-            if (nameToTrainierDict[_trainer.name].team.name == _trainer.team.name)
-                nameToTrainierDict[_trainer.name] = _trainer;
-            else {
-                Trainer.PokemonTeam tempTeam = nameToTrainierDict[_trainer.name].team;
-                tempTeam.name = _trainer.team.name;
-                nameToTrainierDict[_trainer.name].team = tempTeam;
+    public static void SaveData(Trainer _trainer, Trainer _removedTrainer = null){
+        if(_trainer != null){
+            if (NameKeys.Contains(_trainer.name)){
+                if (nameToTrainierDict[_trainer.name].team.name == _trainer.team.name)
+                    nameToTrainierDict[_trainer.name] = _trainer;
+                else {
+                    Trainer.PokemonTeam tempTeam = nameToTrainierDict[_trainer.name].team;
+                    tempTeam.name = _trainer.team.name;
+                    nameToTrainierDict[_trainer.name].team = tempTeam;
+                }
             }
+            else
+                nameToTrainierDict.Add(_trainer.name, _trainer);
         }
-        else
-            nameToTrainierDict.Add(_trainer.name, _trainer);    
+        
+        if (_removedTrainer != null)
+            nameToTrainierDict.Remove(_removedTrainer.name);  
         string DEBUG_json = JsonSerializer.Serialize(nameToTrainierDict);
         File.WriteAllText(Globals.FILE, JsonSerializer.Serialize(nameToTrainierDict));
     }
