@@ -46,6 +46,7 @@ public class Controller{
                 Console.WriteLine($"Welcome {userInput}, since you're new let's get some pokemon\nfor your first team using PokeAPI!");
                 localTrainer = new();
                 localTrainer.name = userInput;
+                localTrainer.team = new();
                 menuInterface.UpdateMenuState(Menu.EMenuState.SEARCH);
                 return;
             }
