@@ -33,11 +33,7 @@ public class Trainer{
     public PokemonTeam team {get; set;}
     public List<Pokemon> PKMTeam{
         get{return team.pokemonTeam;}
-        private set{}
-    }
-    public Trainer(string _name){
-        name = _name;
-        team = new();
+        set{}
     }
     public bool ExchangePokemon(Pokemon _pkm, int _index) 
     {

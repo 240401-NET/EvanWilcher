@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 public class Controller{
     // Constants
     protected string? userInput;  //buffer for user input
-    protected Trainer localTrainer = new("");
+    protected Trainer localTrainer = new();
     protected List<Trainer.PokemonTeam> localTeams = new();
     protected IControllerToMenu menuInterface;
     public Controller(IControllerToMenu _menuInterface){
@@ -40,17 +40,19 @@ public class Controller{
             if (FileService.DoesTrainerPresist(userInput.TrimEnd())){
                 SetLocalTrainer(userInput);
                 Console.WriteLine($"Welcome back {userInput}!!!");
-                menuInterface.UpdateMenuState(Menu.EMenuState.TEAMS);
+                menuInterface.UpdateMenuState(Menu.EMenuState.CURR_TEAM);
                 return;
                }else{
                 Console.WriteLine($"Welcome {userInput}, since you're new let's get some pokemon\nfor your first team using PokeAPI!");
-                localTrainer = new(userInput);
+                localTrainer = new();
+                localTrainer.name = userInput;
                 menuInterface.UpdateMenuState(Menu.EMenuState.SEARCH);
                 return;
             }
         }
     }
     public void SearchPokemon(){
+        Console.Clear();
         while (true){
             // heads up user!
             Console.WriteLine("What pokemon would you like to search?\nOr, enter 'q' to quit.");
@@ -81,6 +83,7 @@ public class Controller{
         }
     }
     public void DisplayTeams(){
+        Console.Clear();
         while (true){
             Console.WriteLine($"Here are your teams.");
             Console.WriteLine("****************************************");
@@ -116,7 +119,7 @@ public class Controller{
                         // todo::display a team and make it the current team for
                         // the user (localTrainer.team = chosen team)
                         if(AffirmTeam()){
-                            localTrainer.team = FileService.GetTrainersTeam(ref localTrainer, localTrainer.team.name);
+                            localTrainer = FileService.GetTrainer(localTrainer.name);
                             FileService.SaveData(localTrainer);
                             menuInterface.UpdateMenuState(Menu.EMenuState.CURR_TEAM);
                         }
@@ -127,11 +130,12 @@ public class Controller{
         }            
     }
     public void DisplayCurrTeam(){
+        Console.Clear();
         while(true){
             Console.WriteLine("Here is your current team.");
             Console.WriteLine("****************************************");
             foreach (Pokemon pkm in localTrainer.PKMTeam)
-                    Console.WriteLine($"{pkm}");
+                    Console.WriteLine($"{pkm}\n");
             Console.WriteLine("****************************************");
             Console.WriteLine("Press \"S\" to search for a Pokemon for your team." +
                             //   "\nPress \"T\" to see all of your teams. " +
@@ -199,9 +203,8 @@ public class Controller{
         }
     }
     protected void SetLocalTrainer(string? _trainerName){
-        string tempString = FileService.FindTrainerByName(_trainerName);
-        localTrainer = tempString == "" ? new(_trainerName) : new(tempString);  
-        localTeams = FileService.GetTrainersTeamList(localTrainer.name);
+        localTrainer = FileService.GetTrainer(_trainerName);  
+        //localTeams = FileService.GetTrainersTeamList(localTrainer.name);
     }
     protected bool ContinueSeraching(Pokemon _searchedPokmon){
         if (_searchedPokmon == null){
@@ -274,7 +277,8 @@ public class Controller{
     protected bool AddPokemonToTeam(Pokemon _searchedPokmon){
         Console.Clear();
         List<string> PKMNames = new();
-        if(!localTrainer.PKMTeam.Any()){
+        if(!localTrainer.PKMTeam.Any() || 
+           localTrainer.PKMTeam.Count < Globals.MAXPKMTEAMSIZE){
             Console.WriteLine($"Adding {_searchedPokmon.Name} to your current team.");
             localTrainer.PKMTeam.Add(_searchedPokmon);
             SaveTeam();
