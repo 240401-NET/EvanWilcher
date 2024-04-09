@@ -147,6 +147,8 @@ public class Controller{
             //     menuInterface.UpdateMenuState(Menu.EMenuState.TEAMS);
             //     return;
             // }
+            Console.Clear();
+            Console.WriteLine("Incorrect input.");
         }    
     }
     private void SaveTeam(){
@@ -355,7 +357,7 @@ public class Controller{
                 else if ("n".Equals(userInput.ToLower()))
                     return false;
                 Console.Clear();
-                Console.WriteLine("Please use Y/N for input.");
+                Console.WriteLine("Incorrect input.");
             }
     } 
    }
