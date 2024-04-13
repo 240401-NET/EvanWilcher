@@ -284,7 +284,7 @@ public class Controller{
                 Console.WriteLine("Your team is full. Enter Pokemon name or team position to" +
                                   "to trade out Pokemon, or press \"B\" to go back to searching.");
                 for(int j = 0; j < Globals.MAXPKMTEAMSIZE; j++){
-                    Console.WriteLine($"{j}) {localTrainer.PKMTeam[j].Name}");
+                    Console.WriteLine($"{j+1}) {localTrainer.PKMTeam[j].Name}");
                     PKMNames.Add(localTrainer.PKMTeam[j].Name);
                 }
                 userInput = Console.ReadLine();
@@ -294,13 +294,13 @@ public class Controller{
                 }
                 else if (Convert.ToInt32(userInput) >=1 && 
                          Convert.ToInt32(userInput) <= Globals.MAXPKMTEAMSIZE){
-                    int index = Convert.ToInt32(userInput);
+                    int index = Convert.ToInt32(userInput) - 1;
                     Console.WriteLine($"Exchanging {_searchedPokmon.Name} for {localTrainer.PKMTeam[index].Name}!");
                     localTrainer.PKMTeam[index] = _searchedPokmon;
                     SaveTeam();
                     break;
                 }
-                else if (PKMNames.Contains(userInput)){
+                else if (PKMNames.Contains(userInput.ToLower())){
                     for(int j = 0; j < Globals.MAXPKMTEAMSIZE; j++){
                         if (userInput == localTrainer.PKMTeam[j].Name){
                             Console.WriteLine($"Exchanging {_searchedPokmon.Name} for {localTrainer.PKMTeam[j].Name}!");
