@@ -1,5 +1,4 @@
 using System.Globalization;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 public static class Globals{
     public const string DISPLAYBADNAMEERRORMESSAGE = "Did not find the pokemon, Please ensure the Pokemon's name is correct."; 

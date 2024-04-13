@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ASP_Project;
+﻿namespace ASP_Project;
 
 public partial class PokemonType
 {
