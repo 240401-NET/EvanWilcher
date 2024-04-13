@@ -7,11 +7,9 @@ ASP_Project.Test/obj*
 ASP_Project/bin/Debug*
 ASP_Project.Test/bin/Debug*
 FileContentIndex*
-Project1Test/bin/Debug*
-Project1Test/obj*
 .vs*
 .sql
 .vscode*
 *.sql
-/Project1Test/obj
-/Project1Test/bin/Debug
+Project1Test/obj*
+Project1Test/bin/Debug*
