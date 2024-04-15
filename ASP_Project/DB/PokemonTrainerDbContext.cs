@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using ASP_Project.Model;
 
-namespace ASP_Project;
+namespace ASP_Project.DB;
 
 public partial class PokemonTrainerDbContext : DbContext
 {

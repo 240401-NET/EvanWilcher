@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using ASP_Project.Model;
+using ASP_Project.DB;
 
-namespace ASP_Project;
+namespace ASP_Project.Cont;
 [Route("api/[controller]")]
 public class TrainerController : Controller{
     //public Trainer trainer;

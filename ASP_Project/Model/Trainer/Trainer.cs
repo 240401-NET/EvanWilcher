@@ -1,4 +1,4 @@
-﻿namespace ASP_Project;
+﻿namespace ASP_Project.Model;
 
 public partial class Trainer
 {
