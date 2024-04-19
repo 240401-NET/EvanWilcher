@@ -1,4 +1,7 @@
-﻿namespace ASP_Project;
+﻿using System;
+using System.Collections.Generic;
+
+namespace ASP_Project.Model;
 
 public partial class Pokemon
 {
@@ -25,6 +28,8 @@ public partial class Pokemon
     public virtual PokemonMoveSet? PokemonMoveSet { get; set; }
 
     public virtual ICollection<PokemonMove> PokemonMoves { get; set; } = new List<PokemonMove>();
+
+    public virtual PokemonSprite? PokemonSprite { get; set; }
 
     public virtual ICollection<PokemonStat> PokemonStats { get; set; } = new List<PokemonStat>();
 

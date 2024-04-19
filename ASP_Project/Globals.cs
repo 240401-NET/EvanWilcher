@@ -12,4 +12,7 @@ public static class Globals{
        set{}
     }
      public const int MAXPKMTEAMSIZE = 6; 
+     public const string POKEMONAPI_POKEMON = "https://pokeapi.co/api/v2/pokemon/";
+     public const string POKEMONAPI_ITEMS = "https://pokeapi.co/api/v2/item/";
+     public const string CHARACTERINVALIDATION = "!@#$%^&*()+=,.;:\"\'>< ";
 }

@@ -1,4 +1,7 @@
-﻿namespace ASP_Project;
+﻿using System;
+using System.Collections.Generic;
+
+namespace ASP_Project.Model;
 
 public partial class PokemonMoveSet
 {

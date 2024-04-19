@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using ASP_Project.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP_Project.DB;
 
@@ -33,11 +35,6 @@ public partial class PokemonTrainerDbContext : DbContext
     public virtual DbSet<PokemonType> PokemonTypes { get; set; }
 
     public virtual DbSet<Trainer> Trainers { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer(File.ReadAllText(Globals.SQLSERVERCREDENTIALS));
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Pokemon>(entity =>
@@ -87,9 +84,7 @@ public partial class PokemonTrainerDbContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("PokemonID");
             entity.Property(e => e.Name).HasMaxLength(50);
-            entity.Property(e => e.Url)
-                .HasMaxLength(50)
-                .HasColumnName("URL");
+            entity.Property(e => e.Sprite).HasMaxLength(255);
 
             entity.HasOne(d => d.Pokemon).WithOne(p => p.PokemonHeldItem)
                 .HasForeignKey<PokemonHeldItem>(d => d.PokemonId)
@@ -146,18 +141,20 @@ public partial class PokemonTrainerDbContext : DbContext
 
         modelBuilder.Entity<PokemonSprite>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("PokemonSprite");
+            entity.HasKey(e => e.PokemonId);
 
+            entity.ToTable("PokemonSprite");
+
+            entity.Property(e => e.PokemonId)
+                .ValueGeneratedNever()
+                .HasColumnName("PokemonID");
             entity.Property(e => e.FrontDefault).HasMaxLength(50);
             entity.Property(e => e.FrontFemale).HasMaxLength(50);
             entity.Property(e => e.FrontShiny).HasMaxLength(50);
             entity.Property(e => e.FrontShinyFemale).HasMaxLength(50);
-            entity.Property(e => e.PokemonId).HasColumnName("PokemonID");
 
-            entity.HasOne(d => d.Pokemon).WithMany()
-                .HasForeignKey(d => d.PokemonId)
+            entity.HasOne(d => d.Pokemon).WithOne(p => p.PokemonSprite)
+                .HasForeignKey<PokemonSprite>(d => d.PokemonId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PokemonID_Sprite");
         });
@@ -206,7 +203,9 @@ public partial class PokemonTrainerDbContext : DbContext
             entity.ToTable("PokemonType");
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.PokemonId).HasColumnName("PokemonID");
+            entity.Property(e => e.Url).HasMaxLength(50);
 
             entity.HasOne(d => d.Pokemon).WithMany(p => p.PokemonTypes)
                 .HasForeignKey(d => d.PokemonId)
